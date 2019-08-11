@@ -241,3 +241,22 @@ func (q *Deque) resize() {
 	q.tail = q.count
 	q.buf = newBuf
 }
+
+// TakeSnapshot gets snapshot of buffer data in deque
+func (q *Deque) TakeSnapshot() []interface{} {
+	snapshot := make([]interface{}, q.Len())
+
+	i := 0
+
+	for _, d := range q.buf {
+		if i == q.Len() {
+			break
+		}
+		if d != nil {
+			snapshot[i] = d
+			i++
+		}
+	}
+
+	return snapshot
+}
